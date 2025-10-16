@@ -111,7 +111,7 @@ public class EmitirPolizaService {
             		 newPolizaC.setPrimaTotalConIva(cobertura.getPrimaTotalConIva());
             		
             		 //PENDIENTEEEEEEEEEE
-            		 primaTotalVendida = primaTotalVendida.add(cobertura.getPrimaTotalSinIva());
+            		 primaTotalVendida = primaTotalVendida.add(cobertura.getPrimaTotalConIva());
             		 polizaCoberturaRepository.save(newPolizaC);
             		 
 

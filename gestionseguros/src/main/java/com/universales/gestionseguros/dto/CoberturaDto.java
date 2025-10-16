@@ -11,4 +11,7 @@ public class CoberturaDto {
 	private BigDecimal gastoEmision;
 	private BigDecimal comisionVenta;
 	private BigDecimal primaNeta;
+	private BigDecimal primaTotalConIva;
+	private BigDecimal primaTotalSinIva;
+	
 }

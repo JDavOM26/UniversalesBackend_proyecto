@@ -1,6 +1,6 @@
 package com.universales.gestionseguros.controller;
 
-import java.math.BigDecimal;
+
 import java.util.List;
 import java.util.Map;
 
@@ -24,7 +24,7 @@ import lombok.Data;
 @RequestMapping("/api/auth/coberturas")
 public class CoberturaController {
 
-	private static final BigDecimal IVA_PORCENTAJE = new BigDecimal("0.12");
+	
 	private final PolizaCoberturaService polizaCoberturaService;
 
 
@@ -48,10 +48,7 @@ public class CoberturaController {
 	@PostMapping("/crear-cobertura")
 	public Cobertura crearCobertura(@Validated @RequestBody CoberturaDto coberturaDto) {
 		
-		BigDecimal primaTotalSinIva = calcularPrimaTotalSinIva(coberturaDto.getPrimaNeta(),
-				coberturaDto.getGastoEmision(), coberturaDto.getComisionVenta());
-
-		BigDecimal primaTotalConIva = calcularPrimaTotalConIva(primaTotalSinIva);
+		
 		
 		Cobertura newCobertura = new Cobertura();
 		newCobertura.setNombre(coberturaDto.getNombre());
@@ -59,19 +56,11 @@ public class CoberturaController {
 		newCobertura.setPrimaNeta(coberturaDto.getPrimaNeta());
 		newCobertura.setComisionVenta(coberturaDto.getComisionVenta());
 		newCobertura.setGastoEmision(coberturaDto.getGastoEmision());
-		newCobertura.setPrimaTotalConIva(primaTotalConIva);
-		newCobertura.setPrimaTotalSinIva(primaTotalSinIva);
+		newCobertura.setPrimaTotalConIva(coberturaDto.getPrimaTotalConIva());
+		newCobertura.setPrimaTotalSinIva(coberturaDto.getPrimaTotalSinIva());
 		return coberturaRepository.save(newCobertura);
 	}
 
-	private BigDecimal calcularPrimaTotalSinIva(BigDecimal primaNeta, BigDecimal gastoEmision,
-			BigDecimal comisionVenta) {
-	    return primaNeta.add(gastoEmision).add(comisionVenta);
-	}
-
-	private BigDecimal calcularPrimaTotalConIva(BigDecimal primaTotalSinIva) {
-		 BigDecimal iva = primaTotalSinIva.multiply(IVA_PORCENTAJE); 
-		    return primaTotalSinIva.add(iva);
-	}
+	
 
 }

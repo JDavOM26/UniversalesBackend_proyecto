@@ -1,5 +1,6 @@
 package com.universales.gestionseguros.controller;
 
+import org.hibernate.Hibernate;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,20 +20,24 @@ public class ClienteController {
 	}
 
 	@GetMapping("/buscar-cliente")
-	public ResponseEntity<Cliente> encontrarClientePorDocumento(@RequestParam String documento,
-			@RequestParam String tipoDocumento) {
+	public ResponseEntity<Cliente> buscarCliente(@RequestParam String valor) {
+		try {
+			Cliente cliente = clienteRepository.buscarPorDpiONit(valor);
 
-		if (tipoDocumento.equals("nit")) {
-			Cliente existingCliente = clienteRepository.findByNit(documento);
-			return ResponseEntity.ok(existingCliente);
+			if (cliente == null) {
+				return ResponseEntity.noContent().build();
+			}
 
+			Hibernate.initialize(cliente.getTelefonos());
+			Hibernate.initialize(cliente.getCorreos());
+			Hibernate.initialize(cliente.getDirecciones());
+
+			return ResponseEntity.ok(cliente);
+
+		} catch (Exception e) {
+			
+			return ResponseEntity.status(500).body(null); 
 		}
-
-		if (tipoDocumento.equals("dpi")) {
-			Cliente existingCliente = clienteRepository.findByDpi(documento);
-			return ResponseEntity.ok(existingCliente);
-
-		}
-		return ResponseEntity.notFound().build();
 	}
+
 }
