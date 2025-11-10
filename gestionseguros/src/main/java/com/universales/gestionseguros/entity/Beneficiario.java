@@ -33,34 +33,34 @@ public class Beneficiario implements Serializable{
 	@GeneratedValue(generator = "beneficiario_sq", strategy=GenerationType.SEQUENCE)
     private Integer idBeneficiario;
 
-	    @Column(name="primer_nombre",length = 50, nullable = false)
+	    @Column(name="primer_nombre")
 	    private String primerNombre;
 	    
-	    @Column(name="segundo_nombre", length = 50, nullable = true)
+	    @Column(name="segundo_nombre")
 	    private String segundoNombre;
 	    
-	    @Column(name="tercer_nombre",length = 50, nullable = true)
+	    @Column(name="tercer_nombre")
 	    private String tercerNombre;
 	    
-	    @Column(name="apellido_primero",length = 50, nullable = false)
+	    @Column(name="apellido_primero")
 	    private String apellidoPrimero;
 	    
-	    @Column(name="apellido_segundo",length = 50, nullable = true)
+	    @Column(name="apellido_segundo")
 	    private String apellidoSegundo;
 	    
-	    @Column(name="apellido_tercero",length = 50, nullable = true)
+	    @Column(name="apellido_tercero")
 	    private String apellidoTercero;
 	    
-	    @Column(name="participacion", length = 50, nullable = false)
+	    @Column(name="participacion")
 	    private Double participacion;
 	    
-	    @Column(name="genero", nullable = false)
+	    @Column(name="genero")
 	    private String genero;
 	    
-	    @Column(name="parentesco", nullable = false)
+	    @Column(name="parentesco")
 	    private String parentesco;
 	    
 	    @ManyToOne
-	    @JoinColumn(name = "id_poliza", nullable = false)
+	    @JoinColumn(name = "id_poliza")
 	    private Poliza poliza;
 }

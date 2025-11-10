@@ -7,6 +7,8 @@ import lombok.Data;
 public class CoberturaDto {
 
 	private String nombre;
+	private Integer idCobertura;
+	private String estado;
 	private BigDecimal sumaAsegurada;
 	private BigDecimal gastoEmision;
 	private BigDecimal comisionVenta;

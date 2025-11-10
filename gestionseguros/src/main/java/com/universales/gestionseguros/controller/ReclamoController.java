@@ -1,8 +1,8 @@
 package com.universales.gestionseguros.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.universales.gestionseguros.dto.EmitirReclamoDto;
+import com.universales.gestionseguros.dto.OkResponseDto;
+import com.universales.gestionseguros.dto.ReclamoResponseDto;
 import com.universales.gestionseguros.entity.PolizaCobertura;
 import com.universales.gestionseguros.entity.Reclamo;
 import com.universales.gestionseguros.repository.PolizaCoberturaRepository;
@@ -29,7 +31,7 @@ public class ReclamoController {
 
 	public ReclamoController(ReclamoRepository reclamoRepository, PolizaCoberturaRepository polizaCoberturaRepository) {
 		this.reclamoRepository = reclamoRepository;
-		this.polizaCoberturaRepository= polizaCoberturaRepository;
+		this.polizaCoberturaRepository = polizaCoberturaRepository;
 	}
 
 	@PostMapping("/emitir-reclamo")
@@ -50,7 +52,7 @@ public class ReclamoController {
 			nuevoReclamo.setAjustador(reclamoDto.getAjustador());
 			nuevoReclamo.setEstadoReclamo("Ingresado");
 			nuevoReclamo.setIdPoliza(reclamoDto.getIdPoliza());
-			
+
 			Reclamo reclamoGuardado = reclamoRepository.save(nuevoReclamo);
 
 			return new ResponseEntity<>(reclamoGuardado, HttpStatus.CREATED);
@@ -59,23 +61,57 @@ public class ReclamoController {
 					"Error al crear el reclamo: " + e.getMessage());
 		}
 	}
-	
-	@GetMapping("/obtener-reclamos-usuario")
-	public List<Reclamo> obtenerReclamoPorUsuario(@RequestParam Integer ajustador) {
 
-		return reclamoRepository.findByAjustador(ajustador);
-		
+	@GetMapping("/obtener-reclamos-usuario")
+	public ResponseEntity<List<Reclamo>> obtenerReclamoPorUsuario(@RequestParam Integer ajustador) {
+		try {
+			return ResponseEntity.ok(reclamoRepository.findByAjustador(ajustador));
+		} catch (Exception e) {
+			return ResponseEntity.status(500).build();
+		}
+
 	}
-	
+
 	@GetMapping("/obtener-reclamos-ingresados")
-	public List<Reclamo> obtenerReclamosIngresados() {
-        String estadoReclamo = "Ingresado";
-		return reclamoRepository.findByEstadoReclamo(estadoReclamo);
-		
+	public ResponseEntity<List<ReclamoResponseDto>> obtenerReclamosIngresados() {
+		try {
+			String estadoReclamo = "Ingresado";
+			List<Reclamo> reclamos = reclamoRepository.findByEstadoReclamo(estadoReclamo);
+			List<ReclamoResponseDto> dtos = reclamos.stream().map(reclamo -> {
+				ReclamoResponseDto dto = new ReclamoResponseDto();
+
+				dto.setIdPoliza(reclamo.getIdPoliza());
+				dto.setIdCobertura(reclamo.getIdCobertura());
+				dto.setFechaSiniestro(reclamo.getFechaSiniestro());
+				dto.setFechaIngresoReclamo(reclamo.getFechaIngresoReclamo());
+				dto.setIdReclamo(reclamo.getIdReclamo());
+				dto.setPrimerNombre(reclamo.getPrimerNombre());
+				dto.setSegundoNombre(reclamo.getSegundoNombre());
+				dto.setTercerNombre(reclamo.getTercerNombre());
+				dto.setApellidoPrimero(reclamo.getApellidoPrimero());
+				dto.setApellidoSegundo(reclamo.getApellidoSegundo());
+				dto.setApellidoTercero(reclamo.getApellidoTercero());
+				dto.setAjustador(reclamo.getAjustador());
+				dto.setEstadoReclamo(reclamo.getEstadoReclamo());
+
+				PolizaCobertura polizaCobertura = polizaCoberturaRepository
+						.findByIdCoberturaAndIdPoliza(reclamo.getIdCobertura(), reclamo.getIdPoliza());
+
+				dto.setSumaAseguradaDisponible(
+						polizaCobertura != null ? polizaCobertura.getSumaAseguradaDisponible() : null);
+
+				return dto;
+			}).toList();
+
+			return ResponseEntity.ok(dtos);
+
+		} catch (Exception e) {
+			return ResponseEntity.status(500).build();
+		}
 	}
-	
+
 	@PostMapping("/aprobar-reclamo")
-	public ResponseEntity<Reclamo> aprobarReclamo(@Validated @RequestBody EmitirReclamoDto reclamoDto) {
+	public ResponseEntity<OkResponseDto> aprobarReclamo(@Validated @RequestBody EmitirReclamoDto reclamoDto) {
 		try {
 			Reclamo aprobarReclamo = reclamoRepository.findById(reclamoDto.getIdReclamo())
 					.orElseThrow(() -> new RuntimeException("Póliza no encontrada"));
@@ -83,42 +119,47 @@ public class ReclamoController {
 			aprobarReclamo.setPerito(reclamoDto.getPerito());
 			aprobarReclamo.setMontoAprobado(reclamoDto.getMontoAprobado());
 			aprobarReclamo.setEstadoReclamo("Aprobado");
-			
-			PolizaCobertura actualizarPc = polizaCoberturaRepository.findByIdCoberturaAndIdPoliza(reclamoDto.getIdCobertura(), reclamoDto.getIdPoliza());
-		    
-		    BigDecimal nuevaSuma = actualizarPc.getSumaAseguradaDisponible().subtract(reclamoDto.getMontoAprobado());
+			aprobarReclamo.setFechaDecisionPerito(new Date());
+			PolizaCobertura actualizarPc = polizaCoberturaRepository
+					.findByIdCoberturaAndIdPoliza(reclamoDto.getIdCobertura(), reclamoDto.getIdPoliza());
+
+			BigDecimal nuevaSuma = actualizarPc.getSumaAseguradaDisponible().subtract(reclamoDto.getMontoAprobado());
 			actualizarPc.setSumaAseguradaDisponible(nuevaSuma);
 			polizaCoberturaRepository.save(actualizarPc);
 
 			Reclamo reclamoGuardado = reclamoRepository.save(aprobarReclamo);
 
-			return new ResponseEntity<>(reclamoGuardado, HttpStatus.CREATED);
+			OkResponseDto response = new OkResponseDto();
+			response.setResponse(String.format("Reclamo con ID %d emitido con exito", reclamoGuardado.getIdReclamo()));
+
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					"Error al crear el reclamo: " + e.getMessage());
 		}
 	}
-	
+
 	@PostMapping("/rechazar-reclamo")
-	public ResponseEntity<Reclamo> rechazarReclamo(@Validated @RequestBody EmitirReclamoDto reclamoDto) {
+	public ResponseEntity<OkResponseDto> rechazarReclamo(@Validated @RequestBody EmitirReclamoDto reclamoDto) {
 		try {
-			Reclamo aprobarReclamo = reclamoRepository.findById(reclamoDto.getIdReclamo())
+			Reclamo rechazarReclamo = reclamoRepository.findById(reclamoDto.getIdReclamo())
 					.orElseThrow(() -> new RuntimeException("Póliza no encontrada"));
 
-			aprobarReclamo.setPerito(reclamoDto.getPerito());
-			aprobarReclamo.setObservacion(reclamoDto.getObservacion());
-			aprobarReclamo.setEstadoReclamo("Rechazado");
-			
-		
+			rechazarReclamo.setPerito(reclamoDto.getPerito());
+			rechazarReclamo.setObservacion(reclamoDto.getObservacion());
+			rechazarReclamo.setEstadoReclamo("Rechazado");
+			rechazarReclamo.setFechaDecisionPerito(new Date());
 
-			Reclamo reclamoGuardado = reclamoRepository.save(aprobarReclamo);
+			Reclamo reclamoGuardado = reclamoRepository.save(rechazarReclamo);
 
-			return new ResponseEntity<>(reclamoGuardado, HttpStatus.CREATED);
+			OkResponseDto response = new OkResponseDto();
+			response.setResponse(String.format("Reclamo con ID %d emitido con exito", reclamoGuardado.getIdReclamo()));
+
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (Exception e) {
 			throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,
 					"Error al crear el reclamo: " + e.getMessage());
 		}
 	}
-	
-	
+
 }

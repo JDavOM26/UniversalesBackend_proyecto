@@ -26,24 +26,27 @@ public class Cobertura implements Serializable {
 	@GeneratedValue(generator = "cobertura_sq", strategy = GenerationType.SEQUENCE)
 	private Integer idCobertura;
 
-	@Column(name = "nombre", nullable = false)
+	@Column(name = "nombre")
 	private String nombre;
+	
+	@Column(name = "estado")
+	private String estado;
 
-	@Column(name = "suma_asegurada", nullable = false)
+	@Column(name = "suma_asegurada")
 	private BigDecimal sumaAsegurada;
 
-	@Column(name = "gasto_emision", nullable = false)
+	@Column(name = "gasto_emision")
 	private BigDecimal gastoEmision;
 
-	@Column(name = "comision_venta", nullable = false)
+	@Column(name = "comision_venta")
 	private BigDecimal comisionVenta;
 
-	@Column(name = "prima_neta", nullable = false)
+	@Column(name = "prima_neta")
 	private BigDecimal primaNeta;
 
-	@Column(name = "prima_total_sin_iva", nullable = false)
+	@Column(name = "prima_total_sin_iva")
 	private BigDecimal primaTotalSinIva;
 	
-	@Column(name = "prima_total_con_iva", nullable = false)
+	@Column(name = "prima_total_con_iva")
 	private BigDecimal primaTotalConIva;
 }

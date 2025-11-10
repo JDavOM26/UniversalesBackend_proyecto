@@ -20,50 +20,55 @@ public class Reclamo implements Serializable {
     @Column(name = "id_reclamo")
     private Integer idReclamo;
 
-    @Column(name = "id_cobertura", nullable = false)
+    @Column(name = "id_cobertura")
     private Integer idCobertura;
 
-    @Column(name = "id_poliza", nullable = false)
+    @Column(name = "id_poliza")
     private Integer idPoliza;
+    
 
-    @Column(name = "estado_reclamo", length = 50)
+    @Column(name = "estado_reclamo")
     private String estadoReclamo;
 
-    @Column(name = "ajustador", nullable = false)
+    @Column(name = "ajustador")
     private Integer ajustador;
 
-    @Column(name = "perito", nullable = true)
+    @Column(name = "perito")
     private Integer perito;
 
     @Column(name = "monto_aprobado")
     private BigDecimal montoAprobado;
 
-    @Column(name = "observacion", length = 100, nullable = true)
+    @Column(name = "observacion")
     private String observacion;
 
-    @Column(name = "fecha_siniestro", nullable = false)
+    @Column(name = "fecha_siniestro")
     private Date fechaSiniestro;
 
-    @Column(name = "fecha_ingreso_reclamo", nullable = false)
+    @Column(name = "fecha_ingreso_reclamo")
     private Date fechaIngresoReclamo;
+    
 
+    
+    @Column(name = "fecha_decision_perito")
+    private Date fechaDecisionPerito;
    
-    @Column(name = "primer_nombre", length = 50, nullable = false)
+    @Column(name = "primer_nombre")
     private String primerNombre;
 
-    @Column(name = "segundo_nombre", length = 50)
+    @Column(name = "segundo_nombre")
     private String segundoNombre;
 
-    @Column(name = "tercer_nombre", length = 50)
+    @Column(name = "tercer_nombre")
     private String tercerNombre;
 
-    @Column(name = "apellido_primero", length = 50, nullable = false)
+    @Column(name = "apellido_primero")
     private String apellidoPrimero;
 
-    @Column(name = "apellido_segundo", length = 50)
+    @Column(name = "apellido_segundo")
     private String apellidoSegundo;
 
-    @Column(name = "apellido_tercero", length = 50)
+    @Column(name = "apellido_tercero")
     private String apellidoTercero;
 
 }

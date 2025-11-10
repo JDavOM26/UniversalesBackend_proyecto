@@ -9,6 +9,8 @@ import lombok.Data;
 @Data
 public class PaqueteDto {
 	private String nombre;
+	private Integer idPaquete;
+	private String estado;
 	private List<Integer> idCobertura;
 	private BigDecimal gastoEmision;
 	private BigDecimal comisionVenta;

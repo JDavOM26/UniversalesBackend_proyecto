@@ -19,30 +19,33 @@ public class PolizaCobertura implements Serializable {
     @Column(name = "id_poliza_cobertura")
     private Integer idPolizaCobertura;
 
-    @Column(name="id_poliza", nullable = false)
+    @Column(name="id_poliza")
     private Integer idPoliza;
 
-    @Column(name="id_cobertura", nullable = false)
+    @Column(name="id_cobertura")
     private Integer idCobertura;
 
-    @Column(name = "nombre", length = 50, nullable = false)
+    @Column(name = "nombre")
     private String nombre;
 
-    @Column(name = "suma_asegurada_disponible", nullable = false)
+    @Column(name = "suma_asegurada_disponible")
     private BigDecimal sumaAseguradaDisponible;
+    
+    @Column(name = "suma_asegurada")
+    private BigDecimal sumaAsegurada;
 
-    @Column(name = "gasto_emision", nullable = false)
+    @Column(name = "gasto_emision")
     private BigDecimal gastoEmision;
 
-    @Column(name = "comision_venta", nullable = false)
+    @Column(name = "comision_venta")
     private BigDecimal comisionVenta;
 
-    @Column(name = "prima_neta", nullable = false)
+    @Column(name = "prima_neta")
     private BigDecimal primaNeta;
 
-    @Column(name = "prima_total_sin_iva", nullable = false)
+    @Column(name = "prima_total_sin_iva")
     private BigDecimal primaTotalSinIva;
 
-    @Column(name = "prima_total_con_iva", nullable = false)
+    @Column(name = "prima_total_con_iva")
     private BigDecimal primaTotalConIva;
 }

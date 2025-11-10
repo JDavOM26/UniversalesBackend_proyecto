@@ -36,27 +36,32 @@ public class DashboardService {
 	public Map<String, Object> buscarCostosSiniestrosAtendidos() {
 		String query = """
 				SELECT
-				    
-				    NVL(SUM(CASE WHEN TRUNC(fecha_ingreso_reclamo) = TRUNC(SYSDATE)
+
+				    NVL(SUM(CASE WHEN estado_reclamo IN ('Aprobado')
+				   AND TRUNC(fecha_decision_perito) = TRUNC(SYSDATE)
 				        THEN NVL(monto_aprobado, 0) ELSE 0 END), 0) as costoSiniestrosDia,
-				    COUNT(CASE WHEN TRUNC(fecha_ingreso_reclamo) = TRUNC(SYSDATE)
+				    COUNT(CASE WHEN estado_reclamo IN ('Aprobado', 'Rechazado')
+				   AND estado_reclamo IN ('Aprobado', 'Rechazado')
+				   AND TRUNC(fecha_decision_perito) = TRUNC(SYSDATE)
 				        THEN 1 END) as siniestrosAtendidosDia,
 
-				    
-				    NVL(SUM(CASE WHEN TRUNC(fecha_ingreso_reclamo, 'MM') = TRUNC(SYSDATE, 'MM')
+
+				    NVL(SUM(CASE WHEN estado_reclamo IN ('Aprobado')
+				   AND TRUNC(fecha_decision_perito, 'MM') = TRUNC(SYSDATE, 'MM')
 				        THEN NVL(monto_aprobado, 0) ELSE 0 END), 0) as costoSiniestrosMes,
-				    COUNT(CASE WHEN TRUNC(fecha_ingreso_reclamo, 'MM') = TRUNC(SYSDATE, 'MM')
+				    COUNT(CASE WHEN estado_reclamo IN ('Aprobado', 'Rechazado')
+				   AND TRUNC(fecha_decision_perito, 'MM') = TRUNC(SYSDATE, 'MM')
 				        THEN 1 END) as siniestrosAtendidosMes
 				FROM reclamo
 				""";
 
 		return npjt.queryForMap(query, Collections.emptyMap());
 	}
-	
-	 public Map<String, Object> obtenerDashboardCompleto() {
-	        Map<String, Object> dashboard = buscarPrimasVendidasPolizasVendidas();
-	        dashboard.putAll(buscarCostosSiniestrosAtendidos());
-	        return dashboard;
-	    }
+
+	public Map<String, Object> obtenerDashboardCompleto() {
+		Map<String, Object> dashboard = buscarPrimasVendidasPolizasVendidas();
+		dashboard.putAll(buscarCostosSiniestrosAtendidos());
+		return dashboard;
+	}
 
 }

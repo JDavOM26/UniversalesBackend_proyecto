@@ -20,15 +20,13 @@ public class Factura implements Serializable {
     @Column(name = "id_factura")
     private Integer idFactura;
 
-    @Column(name = "id_poliza", nullable = false)
+    @Column(name = "id_poliza")
     private Integer idPoliza;
 
-    @Column(name = "numero_factura", nullable = false)
-    private Integer numeroFactura;
 
-    @Column(name = "fecha_emision", nullable = false)
+    @Column(name = "fecha_emision")
     private Date fechaEmision;
 
-    @Column(name = "monto_total", nullable = false)
+    @Column(name = "monto_total")
     private BigDecimal montoTotal;
 }

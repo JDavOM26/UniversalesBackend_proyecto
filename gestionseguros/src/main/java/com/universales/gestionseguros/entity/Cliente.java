@@ -21,34 +21,34 @@ public class Cliente implements Serializable {
     @Column(name = "id_cliente")
     private Integer idCliente;
 
-    @Column(name = "primer_nombre", length = 50, nullable = false)
+    @Column(name = "primer_nombre")
     private String primerNombre;
 
-    @Column(name = "segundo_nombre", length = 50)
+    @Column(name = "segundo_nombre")
     private String segundoNombre;
 
-    @Column(name = "tercer_nombre", length = 50)
+    @Column(name = "tercer_nombre")
     private String tercerNombre;
 
-    @Column(name = "apellido_primero", length = 50, nullable = false)
+    @Column(name = "apellido_primero")
     private String apellidoPrimero;
 
-    @Column(name = "apellido_segundo", length = 50)
+    @Column(name = "apellido_segundo")
     private String apellidoSegundo;
 
-    @Column(name = "apellido_tercero", length = 50)
+    @Column(name = "apellido_tercero")
     private String apellidoTercero;
 
-    @Column(name = "nit", length = 50, nullable = false, unique = true)
+    @Column(name = "nit")
     private String nit;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    @Column(name = "dpi", length = 50, nullable = false, unique = true)
+    @Column(name = "dpi")
     private String dpi;
 
-    @Column(name = "genero", length = 50, nullable = false)
+    @Column(name = "genero")
     private String genero;
     
     @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)

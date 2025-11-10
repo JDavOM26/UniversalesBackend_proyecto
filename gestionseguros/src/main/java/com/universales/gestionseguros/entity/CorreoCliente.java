@@ -20,11 +20,11 @@ public class CorreoCliente implements Serializable {
     @Column(name = "id_correo")
     private Integer idCorreo;
 
-    @Column(name = "email", length = 50, nullable = false)
+    @Column(name = "email")
     private String email;
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 }

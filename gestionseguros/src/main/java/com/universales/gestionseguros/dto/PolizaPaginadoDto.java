@@ -2,15 +2,20 @@ package com.universales.gestionseguros.dto;
 
 import java.math.BigDecimal;
 import java.util.Date;
-import java.util.List;
+
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
-public class PolizaDto {
+@NoArgsConstructor
+@AllArgsConstructor 
+
+public class PolizaPaginadoDto {
+
 	private Integer idPoliza;
 	private String nombrePoliza;
-	private Integer idContratante;
-	private Integer contrante;
+	private Integer contratante;
 	private BigDecimal primaVendidaTotal;
 	private String nombreContratante;
 	private String estado;
@@ -18,7 +23,6 @@ public class PolizaDto {
 	private Integer idPaquete;
 	private Date fechaCreacion;
 	private Date fechaVencimiento;
-	private ClienteDto contratante;
-	private List<BeneficiarioDto> beneficiarios;
-	private List<DependienteDto> dependientes;
-}
+	
+	
+	}

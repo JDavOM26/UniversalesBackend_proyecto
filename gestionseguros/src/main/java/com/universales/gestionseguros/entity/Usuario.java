@@ -27,13 +27,13 @@ public class Usuario implements Serializable{
 	@GeneratedValue(generator = "usuario_sq", strategy=GenerationType.SEQUENCE)
     private Integer idUsuario;
 
-	    @Column(name="username", nullable = false, length = 50)
+	    @Column(name="username")
 	    private String username;
 
-	    @Column(name="password", nullable = false, length = 255)
+	    @Column(name="password")
 	    private String password;
 	    
-	    @Column(name = "rol", nullable = false, length = 50)
+	    @Column(name = "rol")
 	    private String rol;
 	  	    
 }

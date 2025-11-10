@@ -22,12 +22,12 @@ public class ClienteDireccion implements Serializable {
 
     @ManyToOne
     @JsonBackReference
-    @JoinColumn(name = "id_cliente", nullable = false)
+    @JoinColumn(name = "id_cliente")
     private Cliente cliente;
 
-    @Column(name = "direccion", length = 100, nullable = false)
+    @Column(name = "direccion")
     private String direccion;
 
-    @Column(name = "tipo_direccion",length = 100, nullable = false)
+    @Column(name = "tipo_direccion")
     private String tipoDireccion;
 }

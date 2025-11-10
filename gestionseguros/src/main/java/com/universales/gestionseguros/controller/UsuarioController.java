@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.UsuarioDto;
 import com.universales.gestionseguros.entity.Usuario;
 import com.universales.gestionseguros.repository.UsuarioRepository;
@@ -27,16 +28,17 @@ public class UsuarioController {
 	}
 
 	@PostMapping("/crear-usuario")
-	public ResponseEntity<Usuario> crearUsuario(@Validated @RequestBody UsuarioDto usuarioDto) {
+	public ResponseEntity<OkResponseDto> crearUsuario(@Validated @RequestBody UsuarioDto usuarioDto) {
 	    try {
+	    	OkResponseDto response = new OkResponseDto();
 	        Usuario newUser = new Usuario();
 	        newUser.setUsername(usuarioDto.getUsername());
 	        newUser.setPassword(passwordEncoder.encode(usuarioDto.getPassword()));
 	        newUser.setRol(usuarioDto.getRol());
 
 	        Usuario savedUser = usuarioRepository.save(newUser);
-
-	        return new ResponseEntity<>(savedUser, HttpStatus.CREATED);
+	        response.setResponse(String.format("Usuario con ID %d creado con exito", savedUser.getIdUsuario()));
+			return new ResponseEntity<>(response, HttpStatus.CREATED);
 	    } catch (Exception e) {
 	      
 	        throw new ResponseStatusException(

@@ -19,31 +19,31 @@ public class Dependiente implements Serializable {
     @Column(name = "id_dependiente")
     private Integer idDependiente;
 
-    @Column(name = "primer_nombre", length = 50, nullable = false)
+    @Column(name = "primer_nombre")
     private String primerNombre;
 
-    @Column(name = "segundo_nombre", length = 50)
+    @Column(name = "segundo_nombre")
     private String segundoNombre;
 
-    @Column(name = "tercer_nombre", length = 50)
+    @Column(name = "tercer_nombre")
     private String tercerNombre;
 
-    @Column(name = "apellido_primero", length = 50, nullable = false)
+    @Column(name = "apellido_primero")
     private String apellidoPrimero;
 
-    @Column(name = "apellido_segundo", length = 50)
+    @Column(name = "apellido_segundo")
     private String apellidoSegundo;
 
-    @Column(name = "apellido_tercero", length = 50)
+    @Column(name = "apellido_tercero")
     private String apellidoTercero;
 
-    @Column(name = "fecha_nacimiento", nullable = false)
+    @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
 
-    @Column(name = "parentesco", length = 50, nullable = false)
+    @Column(name = "parentesco")
     private String parentesco;
 
     @ManyToOne
-    @JoinColumn(name = "id_poliza", nullable = false)
+    @JoinColumn(name = "id_poliza")
     private Poliza poliza;
 }

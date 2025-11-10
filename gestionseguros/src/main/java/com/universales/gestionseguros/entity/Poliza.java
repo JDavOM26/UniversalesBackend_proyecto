@@ -6,6 +6,9 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -39,33 +42,37 @@ public class Poliza implements Serializable{
 	@GeneratedValue(generator = "poliza_sq", strategy=GenerationType.SEQUENCE)
     private Integer idPoliza;
 
-	    @Column(name="contratante", nullable = false)
+	    @Column(name="contratante")
 	    private Integer contratante;
 	    
-	    @Column(name="nombre_poliza", length = 50, nullable = false)
+	    @Column(name="nombre_poliza")
 	    private String nombrePoliza;
 	    
-	    @Column(name="estado", length = 100, nullable=false)
+	    @Column(name="estado")
 	    private String estado;
 
-	    @Column(name="vendedor", nullable = false)
+	    @Column(name="vendedor")
 	    private Integer vendedor;
 	    
-	    @Column(name="prima_vendida_total", nullable = false)
+	    @Column(name="prima_vendida_total")
 	    private BigDecimal primaVendidaTotal = BigDecimal.ZERO;
 	    
-	    @Column(name="id_paquete", nullable = false)
+	    @Column(name="id_paquete")
 	    private Integer idPaquete;
 	    
-	    @Column(name="fecha_creacion", nullable = false)
+	    @Column(name="fecha_creacion")
 	    private Date fechaCreacion;
 	    
-	    @Column(name="fecha_vencimiento", nullable = false)
+	    @Column(name="fecha_vencimiento")
 	    private Date fechaVencimiento;
 	  
 	    @OneToMany(mappedBy = "poliza", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	    @JsonBackReference
+	    @JsonIgnore
 	    private List<Beneficiario> beneficiarios = new ArrayList<>();
 
 	    @OneToMany(mappedBy = "poliza", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+	    @JsonBackReference
+	    @JsonIgnore
 	    private List<Dependiente> dependientes = new ArrayList<>();
 }

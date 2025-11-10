@@ -23,9 +23,9 @@ public class PaqueteCobertura implements Serializable {
     @Column(name = "id_paquete_cobertura")
     private Integer idPaqueteCobertura;
     
-    @Column(name="id_paquete", nullable = false)
+    @Column(name="id_paquete")
     private Integer idPaquete;
 
-    @Column(name="id_cobertura", nullable = false)
+    @Column(name="id_cobertura")
     private Integer idCobertura;
 }

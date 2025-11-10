@@ -1,7 +1,6 @@
 package com.universales.gestionseguros.security;
 
 import java.util.Arrays;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,24 +15,20 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import com.universales.gestionseguros.service.JwtUserDetailsService;
-
-
-
-
-
 
 @Configuration
 public class WebSecurityConfig {
 
-    @Autowired
-    JwtUserDetailsService userDetailsService;
+	
+	private final JwtAuthenticationEntryPoint unauthorizedHandler;
+	private final JwtAuthTokenFilter jwtAuthTokenFilter;
 
-    @Autowired
-    private JwtAuthenticationEntryPoint unauthorizedHandler;
-
-    @Autowired
-    private JwtAuthTokenFilter jwtAuthTokenFilter;
+	public WebSecurityConfig(
+	                         JwtAuthenticationEntryPoint unauthorizedHandler,
+	                         JwtAuthTokenFilter jwtAuthTokenFilter) {
+	    this.unauthorizedHandler = unauthorizedHandler;
+	    this.jwtAuthTokenFilter = jwtAuthTokenFilter;
+	}
 
     @Bean
     AuthenticationManager authenticationManager(

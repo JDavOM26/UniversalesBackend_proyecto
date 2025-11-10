@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 @Component
 public class JwtAuthenticationEntryPoint  implements AuthenticationEntryPoint {
-	//Aquí unicamente se maneja el mensaje de error cuando el token es invalido al acceder a endpoint protegidos
+	
 	 @Override
 	    public void commence(
 	            HttpServletRequest request,

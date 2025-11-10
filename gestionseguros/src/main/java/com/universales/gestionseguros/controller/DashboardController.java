@@ -13,14 +13,18 @@ import com.universales.gestionseguros.service.DashboardService;
 @RequestMapping("/api/auth/dashboard")
 public class DashboardController {
 
-private final DashboardService dashboardService;
-    
-    public DashboardController(DashboardService dashboardService) {
-        this.dashboardService = dashboardService;
-    }
-    
-    @GetMapping("/obtener-dashboard-general")
-    public ResponseEntity<Map<String, Object>> getDashboard() {
-        return ResponseEntity.ok(dashboardService.obtenerDashboardCompleto());
-    }
+	private final DashboardService dashboardService;
+
+	public DashboardController(DashboardService dashboardService) {
+		this.dashboardService = dashboardService;
+	}
+
+	@GetMapping("/obtener-dashboard-general")
+	public ResponseEntity<Map<String, Object>> getDashboard() {
+		try {
+		return ResponseEntity.ok(dashboardService.obtenerDashboardCompleto());
+		}catch(Exception e) {
+			return ResponseEntity.status(500).build();
+		}
+	}
 }

@@ -1,7 +1,6 @@
 package com.universales.gestionseguros.service;
 
 import java.util.Collections;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
@@ -14,8 +13,12 @@ import com.universales.gestionseguros.repository.UsuarioRepository;
 
 @Service
 public class JwtUserDetailsService  implements UserDetailsService {
-    @Autowired
-    private UsuarioRepository userRepository;
+  
+    private final UsuarioRepository userRepository;
+   
+   public JwtUserDetailsService(UsuarioRepository userRepository) {
+	   this.userRepository = userRepository;
+   }
     
     @Override
     public UserDetails loadUserByUsername(String username){
