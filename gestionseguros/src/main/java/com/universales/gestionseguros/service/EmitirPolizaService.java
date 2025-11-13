@@ -120,20 +120,19 @@ public class EmitirPolizaService {
 				}
 			}
 
-			crearFactura(polizaGuardada, polizaDto);
+			crearFactura(polizaGuardada);
 
 			OkResponseDto response = new OkResponseDto();
 			response.setResponse(String.format("Poliza con ID %d creada con exito", polizaGuardada.getIdPoliza()));
 			return response;
 
 		} catch (DataAccessException e) {
-			throw new RuntimeException("Error");
-		} catch (Exception e) {
-			throw new RuntimeException("Error");
+			throw new DataAccessException("Error") {
+            };
 		}
 	}
 
-	private void crearFactura(Poliza polizaGuardada, PolizaDto polizaDto) {
+	private void crearFactura(Poliza polizaGuardada) {
 		try {
 			Factura nuevaFactura = new Factura();
 			nuevaFactura.setIdPoliza(polizaGuardada.getIdPoliza());
@@ -141,7 +140,8 @@ public class EmitirPolizaService {
 			nuevaFactura.setMontoTotal(polizaGuardada.getPrimaVendidaTotal());
 			facturaRepository.save(nuevaFactura);
 		} catch (DataAccessException e) {
-			throw new RuntimeException("No se pudo crear la factura asociada a la póliza.");
+			throw new DataAccessException(e.getMessage()) {
+            };
 		}
 	}
 }

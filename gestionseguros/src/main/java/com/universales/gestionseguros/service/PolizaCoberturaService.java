@@ -3,6 +3,8 @@ package com.universales.gestionseguros.service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
@@ -40,7 +42,8 @@ public class PolizaCoberturaService {
 	public BigDecimal getSumaAseguradaDisponible(Integer idPoliza, Integer idCobertura) {
         BigDecimal sumaAsegurada = polizaCoberturaRepository.findSumaAseguradaDisponibleByIdPolizaAndIdCobertura(idPoliza, idCobertura);
         if (sumaAsegurada == null) {
-            throw new RuntimeException("PolizaCobertura no encontrada por ids: " + idPoliza + "& "+idCobertura);
+            throw new DataAccessException("PolizaCobertura no encontrada por ids: " + idPoliza + "& " + idCobertura) {
+            };
         }
         return sumaAsegurada;
     }
