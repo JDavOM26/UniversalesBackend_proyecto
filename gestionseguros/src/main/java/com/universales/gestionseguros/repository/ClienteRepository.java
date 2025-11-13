@@ -14,10 +14,10 @@ public interface ClienteRepository extends JpaRepository<Cliente, Integer> {
  
     
     @Query("""
-    	       SELECT DISTINCT c FROM Cliente c
-    	       WHERE UPPER(c.dpi) LIKE CONCAT('%', UPPER(:busqueda), '%')
-    	          OR UPPER(c.nit) LIKE CONCAT('%', UPPER(:busqueda), '%')
-    	       """)
+            SELECT DISTINCT c FROM Cliente c
+            WHERE UPPER(c.dpi) LIKE CONCAT('%', UPPER(:busqueda), '%')
+            OR UPPER(c.nit) LIKE CONCAT('%', UPPER(:busqueda), '%')
+            """)
     	Cliente buscarPorDpiONit(@Param("busqueda") String busqueda);
 
 }
