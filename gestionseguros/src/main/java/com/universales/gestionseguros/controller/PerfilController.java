@@ -2,7 +2,7 @@ package com.universales.gestionseguros.controller;
 
 import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.PerfilDto;
-import com.universales.gestionseguros.entity.Usuario;
+import com.universales.entity.Usuario;
 import com.universales.gestionseguros.repository.UsuarioRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpStatus;

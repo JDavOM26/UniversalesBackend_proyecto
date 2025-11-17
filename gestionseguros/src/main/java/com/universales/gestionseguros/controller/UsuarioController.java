@@ -10,7 +10,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.UsuarioDto;
-import com.universales.gestionseguros.entity.Usuario;
+import com.universales.entity.Usuario;
 import com.universales.gestionseguros.repository.UsuarioRepository;
 
 @RestController

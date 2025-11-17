@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import com.universales.gestionseguros.dto.LoginResponseDto;
-import com.universales.gestionseguros.entity.Usuario;
+import com.universales.entity.Usuario;
 import com.universales.gestionseguros.repository.UsuarioRepository;
 import com.universales.gestionseguros.security.JwtTokenUtil;
 import org.apache.commons.logging.Log;

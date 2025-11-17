@@ -48,6 +48,12 @@
 			<artifactId>ojdbc11</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+        <!-- entity-library -->
+        <dependency>
+            <groupId>com.universales</groupId>
+            <artifactId>entity-library</artifactId>
+            <version>1.0.0</version>
+        </dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
