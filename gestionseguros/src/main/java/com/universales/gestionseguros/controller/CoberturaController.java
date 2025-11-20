@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.universales.gestionseguros.dto.CoberturaDto;
 import com.universales.gestionseguros.dto.OkResponseDto;
-import com.universales.gestionseguros.entity.Cobertura;
+import com.universales.entity.Cobertura;
 import com.universales.gestionseguros.repository.CoberturaRepository;
 import com.universales.gestionseguros.service.PolizaCoberturaService;
 

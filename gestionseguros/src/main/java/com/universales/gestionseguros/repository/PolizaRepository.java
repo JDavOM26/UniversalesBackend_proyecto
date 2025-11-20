@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.universales.gestionseguros.entity.Poliza;
+import com.universales.entity.Poliza;
 
 @Repository("polizaRepository")
 public interface PolizaRepository extends JpaRepository<Poliza, Integer> {

@@ -2,10 +2,10 @@ package com.universales.gestionseguros.service;
 
 import org.springframework.stereotype.Service;
 import com.universales.gestionseguros.dto.ClienteDto;
-import com.universales.gestionseguros.entity.Cliente;
-import com.universales.gestionseguros.entity.ClienteDireccion;
-import com.universales.gestionseguros.entity.CorreoCliente;
-import com.universales.gestionseguros.entity.TelefonoCliente;
+import com.universales.entity.Cliente;
+import com.universales.entity.ClienteDireccion;
+import com.universales.entity.CorreoCliente;
+import com.universales.entity.TelefonoCliente;
 import com.universales.gestionseguros.repository.ClienteRepository;
 
 @Service

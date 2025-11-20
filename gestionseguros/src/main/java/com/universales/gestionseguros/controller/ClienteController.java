@@ -11,7 +11,7 @@ import com.universales.gestionseguros.dto.ClienteResponseDto;
 import com.universales.gestionseguros.dto.CorreoDto;
 import com.universales.gestionseguros.dto.DireccionDto;
 import com.universales.gestionseguros.dto.TelefonoDto;
-import com.universales.gestionseguros.entity.Cliente;
+import com.universales.entity.Cliente;
 import com.universales.gestionseguros.repository.ClienteRepository;
 
 @RestController

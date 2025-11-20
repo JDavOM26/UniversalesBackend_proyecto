@@ -1,4 +1,4 @@
-package com.universales.gestionseguros.entity;
+package com.universales.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;

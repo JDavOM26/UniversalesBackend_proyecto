@@ -5,7 +5,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
-import com.universales.gestionseguros.entity.Usuario;
+import com.universales.entity.Usuario;
 import com.universales.gestionseguros.repository.UsuarioRepository;
 
 

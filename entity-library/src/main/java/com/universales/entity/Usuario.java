@@ -1,4 +1,4 @@
-package com.universales.gestionseguros.entity;
+package com.universales.entity;
 
 import java.io.Serializable;
 import jakarta.persistence.Column;
@@ -35,6 +35,9 @@ public class Usuario implements Serializable{
 	    
 	    @Column(name = "rol")
 	    private String rol;
+        
+        @Column(name = "imagen")
+        private String imagen;
 	  	    
 }
 

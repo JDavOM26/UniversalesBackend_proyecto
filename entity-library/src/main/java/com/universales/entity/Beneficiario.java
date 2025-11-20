@@ -1,5 +1,4 @@
-package com.universales.gestionseguros.entity;
-
+package com.universales.entity;
 import java.io.Serializable;
 
 import jakarta.persistence.Column;

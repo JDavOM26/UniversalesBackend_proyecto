@@ -8,14 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.PolizaDto;
-import com.universales.gestionseguros.entity.Poliza;
-import com.universales.gestionseguros.entity.PolizaCobertura;
-import com.universales.gestionseguros.entity.Beneficiario;
-import com.universales.gestionseguros.entity.Cobertura;
-import com.universales.gestionseguros.entity.Dependiente;
-import com.universales.gestionseguros.entity.Factura;
-import com.universales.gestionseguros.entity.Paquete;
-import com.universales.gestionseguros.entity.PaqueteCobertura;
+import com.universales.entity.Poliza;
+import com.universales.entity.PolizaCobertura;
+import com.universales.entity.Beneficiario;
+import com.universales.entity.Cobertura;
+import com.universales.entity.Dependiente;
+import com.universales.entity.Factura;
+import com.universales.entity.Paquete;
+import com.universales.entity.PaqueteCobertura;
 import com.universales.gestionseguros.repository.CoberturaRepository;
 import com.universales.gestionseguros.repository.FacturaRepository;
 import com.universales.gestionseguros.repository.PaqueteCoberturaRepository;
@@ -120,20 +120,19 @@ public class EmitirPolizaService {
 				}
 			}
 
-			crearFactura(polizaGuardada, polizaDto);
+			crearFactura(polizaGuardada);
 
 			OkResponseDto response = new OkResponseDto();
 			response.setResponse(String.format("Poliza con ID %d creada con exito", polizaGuardada.getIdPoliza()));
 			return response;
 
 		} catch (DataAccessException e) {
-			throw new RuntimeException("Error");
-		} catch (Exception e) {
-			throw new RuntimeException("Error");
+			throw new DataAccessException("Error") {
+            };
 		}
 	}
 
-	private void crearFactura(Poliza polizaGuardada, PolizaDto polizaDto) {
+	private void crearFactura(Poliza polizaGuardada) {
 		try {
 			Factura nuevaFactura = new Factura();
 			nuevaFactura.setIdPoliza(polizaGuardada.getIdPoliza());
@@ -141,7 +140,8 @@ public class EmitirPolizaService {
 			nuevaFactura.setMontoTotal(polizaGuardada.getPrimaVendidaTotal());
 			facturaRepository.save(nuevaFactura);
 		} catch (DataAccessException e) {
-			throw new RuntimeException("No se pudo crear la factura asociada a la póliza.");
+			throw new DataAccessException(e.getMessage()) {
+            };
 		}
 	}
 }

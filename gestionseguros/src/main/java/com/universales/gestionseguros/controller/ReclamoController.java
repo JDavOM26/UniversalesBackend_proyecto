@@ -17,8 +17,8 @@ import org.springframework.web.server.ResponseStatusException;
 import com.universales.gestionseguros.dto.EmitirReclamoDto;
 import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.ReclamoResponseDto;
-import com.universales.gestionseguros.entity.PolizaCobertura;
-import com.universales.gestionseguros.entity.Reclamo;
+import com.universales.entity.PolizaCobertura;
+import com.universales.entity.Reclamo;
 import com.universales.gestionseguros.repository.PolizaCoberturaRepository;
 import com.universales.gestionseguros.repository.ReclamoRepository;
 
