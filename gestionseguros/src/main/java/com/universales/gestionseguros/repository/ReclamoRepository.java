@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import com.universales.gestionseguros.entity.Reclamo;
+import com.universales.entity.Reclamo;
 
 @Repository("reclamoRepository")
 public interface ReclamoRepository extends JpaRepository<Reclamo, Integer> {

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.PaqueteDto;
-import com.universales.gestionseguros.entity.Paquete;
+import com.universales.entity.Paquete;
 import com.universales.gestionseguros.repository.CoberturaRepository;
 import com.universales.gestionseguros.repository.PaqueteRepository;
 import com.universales.gestionseguros.service.PaqueteCoberturaService;

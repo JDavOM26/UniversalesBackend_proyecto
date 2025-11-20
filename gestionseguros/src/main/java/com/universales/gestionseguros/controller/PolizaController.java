@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.universales.gestionseguros.dto.OkResponseDto;
 import com.universales.gestionseguros.dto.PageResultPoliza;
 import com.universales.gestionseguros.dto.PolizaDto;
-import com.universales.gestionseguros.entity.Poliza;
+import com.universales.entity.Poliza;
 import com.universales.gestionseguros.repository.PolizaRepository;
 import com.universales.gestionseguros.service.BuscarPolizaService;
 import com.universales.gestionseguros.service.EmitirPolizaService;
